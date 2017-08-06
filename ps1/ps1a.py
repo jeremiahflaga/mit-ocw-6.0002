@@ -3,8 +3,16 @@
 # Name: Jeremiah Flaga
 # Collaborators:
 # Time:
-# Started coding:  Aug 6, 2017 10:05 PM
-# Finished coding: Aug 6, 2017 
+# Started coding:
+# Finished coding, including tests:
+#             A.1: Aug 6, 2017 10:05 PM - 10:25 PM
+#             A.2: Aug 6, 2017 10:25 PM - 11:11 PM
+#             A.3: Aug 6, 2017 11:27 PM - Aug 7, 2017 12:32 AM
+#             A.4: Aug 7, 2017  2:30 AM -  2:40 AM
+#             Also, I spent time fixing bug in my solution to A.3
+#               - the bug was that I immediately returned the first partition that passes the constraint (limit)
+#                   But it was not always the best partition
+
 
 from ps1_partition import get_partitions
 import time
@@ -112,11 +120,8 @@ def brute_force_cow_transport(cows,limit=10):
     trips
     """
     names = cows.keys() # sorted(cows.keys(), key = lambda key: key)
-    # print(names)
-    best_partition = [names]
+    best_partition = names
     for partition in get_partitions(names):
-        # print('partition')
-        # print(partition)
         for list_of_names in partition:
             sum_of_weights = 0
             is_bad_partition = False
@@ -128,11 +133,8 @@ def brute_force_cow_transport(cows,limit=10):
                 is_bad_partition = True
                 break
 
-        if not is_bad_partition:
+        if not is_bad_partition and len(partition) < len(best_partition):
             best_partition = partition
-            print('best_partition')
-            print(best_partition)
-            break
 
     return best_partition
         
@@ -150,5 +152,44 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
-    # TODO: Your code here
-    pass
+    def print_results(filename):
+        dict = load_cows(filename)
+        print(filename)
+        print()
+
+        start = time.time()
+        result = greedy_cow_transport(dict, 10)
+        end = time.time()
+        print('Greedy time (in seconds): {}'.format(end - start))
+        print('Greedy result: ')
+        print(result)
+
+        print()
+
+        start = time.time()
+        result = brute_force_cow_transport(dict, 10)
+        end = time.time()
+        print('Brute Force time (in seconds): {}'.format(end - start))
+        print('Brute Force result: ')
+        print(result)
+
+    print_results('ps1_cow_data.txt')
+    print()
+    print_results('ps1_cow_data_2.txt')
+
+
+if __name__ == '__main__':
+    compare_cow_transport_algorithms()
+
+    
+    # for partition in get_partitions([3, 1, 2]):
+    #     print(partition)
+
+    # dict = load_cows('ps1_cow_small_data_test.txt')
+    # names = sorted(dict.keys(), key = lambda key: key)
+    # print()
+    # print(names)
+    # for partition in get_partitions(names):
+    #     print(partition)
+        
+    # brute_force_cow_transport(dict, 10)

@@ -35,6 +35,8 @@ class TestGreedyCowsTransport(unittest.TestCase):
         self.assertListEqual([['Jessie', 'Maybel'], ['Maggie', 'Callie']], result)
         
 
+
+# NOTE: I think the kind of testing I'm doing with the Brute Force solution has an error in here somewhere
 class TestBruteForceCowsTransport(unittest.TestCase):
     
     def test_brute_force_cow_transport_1(self):
@@ -80,9 +82,11 @@ class TestBruteForceCowsTransport(unittest.TestCase):
     def test_greedy_cow_transport_6(self):
         cows_dict = { 'Jessie':6, 'Maybel':3, 'Callie': 2, 'Maggie':5 }
         result = greedy_cow_transport(cows_dict, 10)
-        self.assertListEqual([['Jessie', 'Maybel'], ['Maggie', 'Callie']], result)
-        
-
+        self.assertTrue(result in genSubsets([['Jessie', 'Maybel'], ['Maggie', 'Callie']])
+                        or result in genSubsets([['Maybel', 'Jessie'], ['Maggie', 'Callie']])
+                        or result in genSubsets([['Jessie', 'Maybel'], ['Callie', 'Maggie']])
+                        or result in genSubsets([['Maybel', 'Jessie'], ['Callie', 'Maggie']])
+                        )        
 
 
 if __name__ == '__main__':
