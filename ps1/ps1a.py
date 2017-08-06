@@ -1,8 +1,10 @@
 ###########################
 # 6.0002 Problem Set 1a: Space Cows 
-# Name:
+# Name: Jeremiah Flaga
 # Collaborators:
 # Time:
+# Started coding:  Aug 6, 2017 10:05 PM
+# Finished coding: Aug 6, 2017 
 
 from ps1_partition import get_partitions
 import time
@@ -24,8 +26,19 @@ def load_cows(filename):
     Returns:
     a dictionary of cow name (string), weight (int) pairs
     """
-    # TODO: Your code here
-    pass
+    dict = {}
+    file = open(filename, 'r')
+    for line in file:
+        line = line.rstrip()
+        if len(line) > 0:
+            data = line.split(',')
+            name = data[0]
+            weight = int(data[1])
+            dict[name] = weight
+
+    file.close()
+    return dict
+
 
 # Problem 2
 def greedy_cow_transport(cows,limit=10):
@@ -50,8 +63,31 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    keys_sorted_by_weight = sorted(cows.keys(), key = lambda key: cows[key], reverse=True)
+    cows_sorted = {}
+    for key in keys_sorted_by_weight:
+        cows_sorted[key] = cows[key]
+
+    cows_for_all_trips = []
+    while len(cows_sorted) > 0:
+        cows_sorted_copy = cows_sorted.copy()
+        available_weight_left = limit
+        cows_for_this_trip = []
+        
+        for name in cows_sorted_copy.keys():
+            weight = cows_sorted_copy[name]
+            if weight <= available_weight_left:
+                cows_for_this_trip.append(name)
+                available_weight_left -= weight
+                del(cows_sorted[name])
+
+            if available_weight_left <= 0:
+                break
+
+        cows_for_all_trips.append(cows_for_this_trip)
+
+    return cows_for_all_trips
+
 
 # Problem 3
 def brute_force_cow_transport(cows,limit=10):
