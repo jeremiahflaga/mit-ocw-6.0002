@@ -73,7 +73,7 @@ def greedy_cow_transport(cows,limit=10):
         cows_sorted_copy = cows_sorted.copy()
         available_weight_left = limit
         cows_for_this_trip = []
-        
+
         for name in cows_sorted_copy.keys():
             weight = cows_sorted_copy[name]
             if weight <= available_weight_left:
@@ -111,8 +111,30 @@ def brute_force_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    names = cows.keys() # sorted(cows.keys(), key = lambda key: key)
+    # print(names)
+    best_partition = [names]
+    for partition in get_partitions(names):
+        # print('partition')
+        # print(partition)
+        for list_of_names in partition:
+            sum_of_weights = 0
+            is_bad_partition = False
+            for name in list_of_names:
+                weight_of_current_cow = cows[name]
+                sum_of_weights += weight_of_current_cow
+
+            if sum_of_weights > limit:
+                is_bad_partition = True
+                break
+
+        if not is_bad_partition:
+            best_partition = partition
+            print('best_partition')
+            print(best_partition)
+            break
+
+    return best_partition
         
 # Problem 4
 def compare_cow_transport_algorithms():
