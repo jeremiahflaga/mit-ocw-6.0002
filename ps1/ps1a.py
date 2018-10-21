@@ -71,6 +71,23 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
+    # WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!
+    # WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!
+    # THIS SOLUTION IS WRONG
+    # NOTE: Oct 21, 2018 9:30 PM PHT
+    # I am currently taking "MITx: 6.00.2x" at edX, a course similar to the "MIT OCW 6.0002"
+    # This problem is also given there as the first part of pset 1
+    # I submitted my first solution, but it failed the tests.
+    # So I tried to pass this code for my 2nd attempt at submitting.
+    # It still failed all the tests.
+    # Toinks
+    # This is the reason why I made this code public --- I did not have someone to check this when I tried to take "MIT OCW 6.0002"... si I was hoping that someone will be able to take a look at is someday and see if there are errors.
+    # And I now find out that there are.
+
+    # THIS SOLUTION IS WRONG... but I'm not going to put my correct code here because I'm not allowed to post my solutions online for the "MITx: 6.00.2x" course
+    # WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!
+    # WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!
+
     keys_sorted_by_weight = sorted(cows.keys(), key = lambda key: cows[key], reverse=True)
     cows_sorted = {}
     for key in keys_sorted_by_weight:
